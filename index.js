@@ -5,7 +5,7 @@ const {app, BrowserWindow} = electron;
 let mainWindow;
 
 app.on('ready', () => {
-  new BrowserWindow({
+  mainWindow = new BrowserWindow({
     height: 600,
     width: 800,
     webPreferences: {
