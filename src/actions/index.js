@@ -1,8 +1,9 @@
+import { ipcRenderer } from 'electron';
 import { ADD_VIDEO, ADD_VIDEOS, REMOVE_VIDEO, REMOVE_ALL_VIDEOS, VIDEO_PROGRESS, VIDEO_COMPLETE } from "./types";
 
-
+//videos added and pending conversion
 export const addVideos = videos => dispatch => {
-
+  ipcRenderer.send('videos:added', videos)
 };
 
 export const convertVideos = () => (dispatch, getState) => {
