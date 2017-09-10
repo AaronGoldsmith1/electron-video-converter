@@ -36,8 +36,10 @@ ipcMain.on('conversion:start', (event, videos) => {
   _.each(videos, video => {
     const outputDirectory = video.path.split(video.name)[0];
     const outputPath = `${outputDirectory}${outputName}.${video.format}`;
+
     ffmpeg(video.path)
       .output(outputPath)
+      .on('progress', (event) => mainWindow.webContents.send('conversion:progress'))
       .on('end', () => {
         mainWindow.webContents.send('conversion:end', {
           video,
