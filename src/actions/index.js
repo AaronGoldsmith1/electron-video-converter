@@ -36,7 +36,7 @@ export const convertVideos = () => (dispatch, getState) => {
 };
 
 export const showInFolder = outputPath => dispatch => {
-
+  ipcRenderer.send('folder:open', outputPath);
 };
 
 export const addVideo = video => {
