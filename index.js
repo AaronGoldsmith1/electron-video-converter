@@ -30,8 +30,11 @@ ipcMain.on('videos:added', (event, videos) => {
   Promise.all(promises).then((results) => {
     mainWindow.webContents.send('metadata:complete', results)
   })
-
-  ipcMain.on('conversion:start', (event, videos) => {
-
-  })
 });
+
+ipcMain.on('conversion:start', (event, videos) => {
+  const video = videos[0];
+  const outputDirectory = video.path.split(video.name)[0];
+  const outputPath = `${outputDirectory}${outputName}.${video.format}`;
+  ffmpeg(video.path).output()
+})
