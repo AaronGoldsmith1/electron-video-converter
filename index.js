@@ -36,5 +36,10 @@ ipcMain.on('conversion:start', (event, videos) => {
   const video = videos[0];
   const outputDirectory = video.path.split(video.name)[0];
   const outputPath = `${outputDirectory}${outputName}.${video.format}`;
-  ffmpeg(video.path).output()
+  ffmpeg(video.path)
+    .output(outputPath)
+    .on('end', () => {
+      console.log('video conversion complete')
+    })
+    .run();
 })
