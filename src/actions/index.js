@@ -23,6 +23,16 @@ export const convertVideos = () => (dispatch, getState) => {
       }
     })
   })
+
+  ipcRenderer.on('conversion:progress', (event, {video, timemark}) => {
+    dispatch({
+      type: VIDEO_PROGRESS,
+      payload: {
+        ...video,
+        timemark
+      }
+    })
+  })
 };
 
 export const showInFolder = outputPath => dispatch => {
