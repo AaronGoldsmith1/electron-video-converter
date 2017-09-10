@@ -21,9 +21,15 @@ ipcMain.on('videos:added', (event, videos) => {
   const promises = _.map(videos, video => {
     return new Promise((resolve, reject) => {
       ffmpeg.ffprobe(video.path, (err, metadata) => {
-        resolve(metadata);
+        resolve({
+          ...video,
+          duration: metadata.format.duration,
+          format: 'avi'
+        });
       })
     })
   })
-  Promise.all(promises).then((results) => results)
+  Promise.all(promises).then((results) => {
+    mainWindow.webContents.send('metadata:complete', results)
+  })
 });
