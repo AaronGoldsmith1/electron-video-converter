@@ -13,7 +13,7 @@ export const addVideos = videos => dispatch => {
 };
 
 export const convertVideos = () => (dispatch, getState) => {
-
+  ipcRenderer.send('conversion:start', videos);
 };
 
 export const showInFolder = outputPath => dispatch => {
